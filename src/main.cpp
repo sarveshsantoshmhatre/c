@@ -72,7 +72,7 @@ public:
     explicit Game(uint64_t seed) : seed_(seed) {
         sd_rng_seed(&rng_, seed_);
         generate();
-        log("You enter the Shattered Depths. Find the relic and survive.");
+        message_ = "You enter the Shattered Depths. Find the relic and survive.";
     }
 
     void run() {
@@ -365,7 +365,7 @@ private:
         bool crit=chance(15+player_.level*2);
         int dmg=std::max(1,base)*(crit?2:1);
         e.hp-=dmg;
-        message_=(crit?"Critical strike! ":"")+"You hit "+e.name+" for "+std::to_string(dmg)+".";
+        message_=std::string(crit ? "Critical strike! " : "") + "You hit " + e.name + " for " + std::to_string(dmg) + ".";
         if (e.hp<=0) killEnemy(ei);
     }
 
